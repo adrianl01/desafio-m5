@@ -1,0 +1,14 @@
+{
+  "name": "desafio-n5",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "parcel": "^2.9.3"
+  },
+  "scripts": {
+    "dev": "parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html"
+  }
+}
