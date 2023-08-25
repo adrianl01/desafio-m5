@@ -1,4 +1,4 @@
-const instEl = function (params) {
+function instEl(params) {
   customElements.define(
     "inst-el",
     class Welcome extends HTMLElement {
@@ -92,6 +92,9 @@ const instEl = function (params) {
         shadow.appendChild(div);
         shadow.appendChild(style);
 
+        // const mainDiv2 = document.createElement("div");
+        // mainDiv2.appendChild(shadow);
+        // console.log(mainDiv2);
         return shadow;
       }
     }

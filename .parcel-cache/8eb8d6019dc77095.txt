@@ -23,7 +23,7 @@
 142C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\optimizer-htmlnano\node_modules\css-tree\lib\tokenizer\utils.js133342395110647552 0
 115C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\transformer-html\src\dependencies.js133322876668160000 0
 78C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\yallist133336739503253930 1
-80C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.b71e74eb.js133349510950205400 0
+80C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.b71e74eb.js133373886096498661 0
 106C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\update-browserslist-db\package.json133342395073738420 0
 119C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\caniuse-lite\data\features\font-unicode-range.js133336737218830000 0
 100C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\cache\lib\IDBCache.js133322876748270000 0
@@ -50,7 +50,7 @@
 119C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\lib133342395117183519 1
 83C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\entities\lib133336739506554062 1
 122C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\package-manager\src\MockPackageInstaller.js133322876612870000 0
-62C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist133349510950395276 1
+62C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist133373886096688718 1
 102C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\caniuse-lite\data\regions\ZA.js133336737218830000 0
 79C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\escalade133336739417112945 1
 70C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules133342395159863884 1
@@ -84,7 +84,7 @@
 97C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\htmlnano\docs\netlify.toml133306439019320000 0
 96C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\utility-types\SECURITY.md133301044477270000 0
 92C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\has-flag\package.json133301044598440000 0
-72C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\index.html133349505551602916 0
+72C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\index.html133372142600358874 0
 88C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\yallist\README.md133301044699770000 0
 84C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\lmdb\write.js133342395127114464 0
 98C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@types\node\ts4.8\util.d.ts133342395127114464 0
@@ -137,9 +137,9 @@
 101C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@types\node\ts4.8\console.d.ts133342395116593900 0
 94C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\semver\functions\inc.js133342395075507330 0
 80C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\json5\lib133342395096536237 1
-71C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\router.ts133349505303418762 0
+71C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\router.ts133373885492054007 0
 109C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\svgo\plugins\convertEllipseToCircle.js133342395076136946 0
-78C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\welcome\index.ts133349510949036121 0
+78C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\welcome\index.ts133372172203308605 0
 91C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\parse-json\readme.md133301044832950000 0
 123C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\caniuse-lite\data\features\scrollintoviewifneeded.js133336737218830000 0
 98C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\regenerator-runtime\path.js133301044618490000 0
@@ -161,7 +161,7 @@
 102C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\css-tree\lib\parser\sequence.js133342395124334068 0
 95C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@types\node\globals.d.ts133342395088712011 0
 108C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\utils\test\DefaultMap.test.js133322876627390000 0
-83C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\instructions\index.ts133349476701681495 0
+83C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\instructions\index.ts133372168178005316 0
 120C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\htmlnano\lib\modules\removeRedundantAttributes.js133306439019320000 0
 88C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@types\node\ts4.8133342395130604353 1
 69C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\src\welcome133336753524905888 1
@@ -606,7 +606,7 @@
 121C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\csso\node_modules\css-tree\cjs\tokenizer\index.cjs133342395108059145 0
 127C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\csso\node_modules\css-tree\lib\syntax\node\MediaQuery.js133342395129553934 0
 85C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\weak-lru-cache133336739503625200 1
-82C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\tijera.2daca733.svg133349505561619049 0
+82C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\tijera.2daca733.svg133372175531607996 0
 120C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\csso\node_modules\css-tree\lib\syntax\node\Raw.js133342395131394551 0
 99C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@swc\helpers\_\_ts_generator133336739570858146 1
 93C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\import-fresh\readme.md133301044831530000 0
@@ -1094,7 +1094,7 @@
 91C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\source-map\README.md133301044800200000 0
 99C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\node-releases\data\processed133336739570948087 1
 108C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\caniuse-lite\data\features\svg-img.js133336737218830000 0
-82C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\piedra.3ed8bb08.svg133349505561549224 0
+82C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\piedra.3ed8bb08.svg133372175531607996 0
 88C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\svgo\package.json133342395100303915 0
 117C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\csso\node_modules\css-tree\lib\syntax\index.js133342395126864546 0
 120C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\package-manager\src\NodePackageManager.js133322876612870000 0
@@ -2051,7 +2051,7 @@
 85C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\lmdb\native.js133342395126084335 0
 89C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\lmdb\node-index.js133342395126284214 0
 88C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\lmdb\node_modules133342395134654183 1
-81C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\papel.dbcb3e49.svg133349505561549224 0
+81C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\papel.dbcb3e49.svg133372175531607996 0
 92C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\profiler\test133336739514915218 1
 83C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\lmdb\read.js133342395126894524 0
 87C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\lmdb\SECURITY.md133342395130514409 0
@@ -2534,7 +2534,7 @@
 123C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\css-select\node_modules\entities\lib\esm\encode.d.ts133342395110587582 0
 124C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\csso\node_modules\css-tree\cjs\syntax\node\Atrule.cjs133342395099664328 0
 104C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\htmlnano\lib\modules\minifySvg.js133306439019320000 0
-84C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.b71e74eb.js.map133349510950385286 0
+84C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.b71e74eb.js.map133373886096668727 0
 106C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@swc\helpers\esm\_inherits_loose.js133306439061440000 0
 105C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\htmlnano\lib\modules\minifyUrls.js133306439019320000 0
 154C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\PseudoClassSelector.js133342395120034027 0
@@ -3602,7 +3602,7 @@
 118C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@swc\helpers\esm\_class_private_field_update.js133306439061440000 0
 124C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\css-select\node_modules\domutils\lib\esm\index.js.map133342395106749950 0
 127C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\css-select\node_modules\domutils\lib\esm\legacy.d.ts.map133342395106939824 0
-81C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.2cdaf7bc.css133349505561569111 0
+81C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.2cdaf7bc.css133372175531877830 0
 117C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@swc\helpers\esm\_object_without_properties.js133306439061440000 0
 121C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\css-select\node_modules\domutils\lib\esm\legacy.js133342395103771778 0
 127C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\@swc\helpers\src\_class_apply_descriptor_destructure.mjs133306439061440000 0
@@ -6152,9 +6152,9 @@
 84C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\.bin\svgo.cmd133342395140162187 0
 98C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\.bin\update-browserslist-db133342395140172180 0
 102C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\node_modules\.bin\update-browserslist-db.cmd133342395140172180 0
-81C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\fondo.88dcee48.png133349505562238684 0
+81C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\fondo.88dcee48.png133372175531627978 0
 81C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\fondo.ffaf1246.png133337297410710669 0
-85C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.2cdaf7bc.css.map133349505561808943 0
+85C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.2cdaf7bc.css.map133372175531927794 0
 91C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.b71e74eb.js.map.7676.r133346270386260448 0
-73C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.html133349505561619049 0
+73C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\index.html133372175532027737 0
 82C:\Users\Administrator\Desktop\carrera\nivel-2\desafio-n5\dist\piedra.f9fa3481.svg133337300732419891 0

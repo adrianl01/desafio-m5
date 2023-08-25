@@ -586,67 +586,59 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ultraRouter", ()=>ultraRouter);
 var _welcome = require("./welcome");
 var _instructions = require("./instructions");
-// const welcomeTag = document.querySelector(".root")
-// welcomeTag?. = `
-// `
-// const tags = [
-// ]
-const routes = [
-    {
-        path: /\//,
-        action: (0, _welcome.welcEl)
-    },
-    {
-        path: /\/instructions/,
-        action: (0, _instructions.instEl)
-    }
-];
 function ultraRouter(container) {
+    function divWelc() {
+        const divWelcEl = document.createElement("div");
+        divWelcEl.innerHTML = `<welc-el></welc-el>`;
+        container.appendChild(divWelcEl);
+    }
+    function divInst() {
+        const divInst = document.createElement("div");
+        divInst.innerHTML = `<inst-el></inst-el>`;
+        container.appendChild(divInst);
+    }
+    const routes = [
+        {
+            path: /\/welcome/,
+            action: (0, _welcome.welcEl),
+            tag: divWelc
+        },
+        {
+            path: /\/instructions/,
+            action: (0, _instructions.instEl),
+            tag: divInst
+        }
+    ];
     function goTo(path) {
         history.pushState({}, "", path);
         handleRoute(path);
     }
     // ---------------------------------------------
-    // function handleRoute(route) {
-    //   const divWelc = document.createElement("div");
-    //   divWelc.innerHTML = `<welc-el></welc-el>`;
-    //   const divInst = document.createElement("div");
-    //   divInst.innerHTML = `<inst-el></inst-el>`;
-    // function remover() {
-    //   const main = document.querySelector(".main");
-    //   if (container.firstChild) {
-    //     const els = container.firstChild.remove();
-    //     console.log("se elimina", els);
-    //   }
-    // }
-    // function func() {
-    //   for (const r of routes) {
-    //     console.log("r", r);
-    //     console.log("ruta", route);
-    //     if (r.path.test(route)) {
-    //       console.log(r.tag);
-    //       r.tag;
-    //       const el = r.action({ goTo: goTo });
-    //     }
-    //   }
-    // }
-    // remover();
-    // func();
-    // }
     function handleRoute(route) {
-        for (const r of routes)if (r.path.test(route)) {
-            const el = r.action({
-                goTo: goTo
-            });
-            console.log(r);
-            if (container.firstChild) container.firstChild.remove();
-            console.log(el);
-            container.appendChild(el);
+        function remover() {
+            if (container.firstChild) {
+                const els = container.firstChild.remove();
+                console.log("se elimina", els);
+            }
         }
+        function func() {
+            for (const r of routes){
+                console.log("r", r);
+                console.log("ruta", route);
+                if (r.path.test(route)) {
+                    console.log(r.tag);
+                    r.tag();
+                    const el = r.action({
+                        goTo: goTo
+                    });
+                    console.log(el);
+                    return el;
+                }
+            }
+        }
+        remover();
+        func();
     }
-    // if ((location.pathname = "/")) {
-    //   goTo("/welcome");
-    // }
     console.log("antes del handleRoute", location.pathname);
     handleRoute(location.pathname);
     window.onpopstate = function() {
@@ -659,7 +651,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "welcEl", ()=>welcEl);
 function welcEl(params) {
-    const customEl = customElements.define("welc-el", class Welcome extends HTMLElement {
+    customElements.define("welc-el", class Welcome extends HTMLElement {
         constructor(){
             super();
             this.render();
@@ -754,21 +746,18 @@ function welcEl(params) {
             });
             shadow.appendChild(div);
             shadow.appendChild(style);
-            const mainDiv = document.createElement("div");
-            mainDiv.appendChild(shadow);
-            console.log(mainDiv);
-            return mainDiv;
+            // const mainDiv = document.createElement("div")
+            // mainDiv.appendChild(shadow);
+            // console.log(mainDiv.nodeType);
+            const boton = document.querySelector(".button");
+            boton.addEventListener("click", function() {
+                params.goTo("/instructions");
+                console.log("exitButton was clicked!");
+            });
+            return shadow;
         //   div.appendChild(style);
-        // const boton = document.querySelector(".button") as HTMLButtonElement;
-        // boton.addEventListener("click", function () {
-        //   params.goTo("/instructions");
-        //   console.log("exitButton was clicked!");
-        // });
         }
     });
-    const ultraDiv = document.createElement("div");
-    ultraDiv.innerHTML = `${customEl}`;
-    return ultraDiv;
 }
 
 },{"cb8c1c6d298f2a46":"9F5qN","eb6ac780c41acfc8":"aFQpL","d017b3f9e3a35c5d":"6oFW3","2ea421fe71755ece":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9F5qN":[function(require,module,exports) {
@@ -852,7 +841,7 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "instEl", ()=>instEl);
-const instEl = function(params) {
+function instEl(params) {
     customElements.define("inst-el", class Welcome extends HTMLElement {
         constructor(){
             super();
@@ -940,10 +929,13 @@ const instEl = function(params) {
             //   return div;
             shadow.appendChild(div);
             shadow.appendChild(style);
+            // const mainDiv2 = document.createElement("div");
+            // mainDiv2.appendChild(shadow);
+            // console.log(mainDiv2);
             return shadow;
         }
     });
-};
+}
 
 },{"80459f7bc17693c":"9F5qN","e69c38e5c0d10819":"aFQpL","9dde2afb4b3bb0dc":"6oFW3","3af4f9e03806575e":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2oZg2","h7u1C"], "h7u1C", "parcelRequire6ad3")
 

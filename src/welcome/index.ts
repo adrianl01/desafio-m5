@@ -1,5 +1,5 @@
 export function welcEl(params) {
-  const customEl = customElements.define(
+  customElements.define(
     "welc-el",
     class Welcome extends HTMLElement {
       constructor() {
@@ -104,24 +104,21 @@ export function welcEl(params) {
         });
         shadow.appendChild(div);
         shadow.appendChild(style);
-        const mainDiv = document.createElement("div");
-
-        mainDiv.appendChild(shadow);
-
-        console.log(mainDiv);
-        return mainDiv;
+        // const mainDiv = document.createElement("div")
+        // mainDiv.appendChild(shadow);
+        // console.log(mainDiv.nodeType);
+        const boton = document.querySelector(".button") as HTMLButtonElement;
+        boton.addEventListener("click", function () {
+          params.goTo("/instructions");
+          console.log("exitButton was clicked!");
+        });
+        return shadow;
 
         //   div.appendChild(style);
 
-        // const boton = document.querySelector(".button") as HTMLButtonElement;
-        // boton.addEventListener("click", function () {
-        //   params.goTo("/instructions");
-        //   console.log("exitButton was clicked!");
-        // });
       }
     }
   );
-  const ultraDiv = document.createElement("div");
-  ultraDiv.innerHTML = `${customEl}`;
-  return ultraDiv;
+
 }
+
