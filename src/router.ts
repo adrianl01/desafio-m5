@@ -2,6 +2,8 @@ import { welcEl } from "./welcome";
 import { instEl } from "./instructions";
 import { gameEl } from "./game";
 import { paper } from "./hands/paper";
+import { scissors } from "./hands/scissors";
+import { stone } from "./hands/stone";
 
 export function ultraRouter(container) {
   function divWelc() {
@@ -24,6 +26,16 @@ export function ultraRouter(container) {
     divPaper.innerHTML = `<paper-el></paper-el>`;
     container.appendChild(divPaper)
   }
+  function divScissors() {
+    const divScissors = document.createElement("div");
+    divScissors.innerHTML = `<scissors-el></scissors-el>`;
+    container.appendChild(divScissors)
+  }
+  function divStone() {
+    const divStone = document.createElement("div");
+    divStone.innerHTML = `<stone-el></stone-el>`;
+    container.appendChild(divStone)
+  }
   const routes = [
     {
       path: /\/welcome/,
@@ -45,6 +57,17 @@ export function ultraRouter(container) {
       action: paper,
       tag: divPaper,
     },
+    {
+      path: /\/scissors/,
+      action: scissors,
+      tag: divScissors,
+    },
+    {
+      path: /\/stone/,
+      action: stone,
+      tag: divStone,
+    },
+
   ];
   function goTo(path) {
     history.pushState({}, "", path);

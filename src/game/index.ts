@@ -22,9 +22,9 @@ function gameEl(params) {
                 </div>
                 </div>
             <div class="hands">
-            <button class="hands__button"><div class="stone"><img src=${stonePicURL} class="img"></div></button>
-            <button class="hands__button"><div class="paper"><img src=${paperPicURL} class="img"></div></button>
-            <button class="hands__button"><div class="scissors"><img src=${scissorsPicURL} class="img"></div></button>
+            <button class="hands__button-stone"><div class="stone"><img src=${stonePicURL} class="img"></div></button>
+            <button class="hands__button-paper"><div class="paper"><img src=${paperPicURL} class="img"></div></button>
+            <button class="hands__button-scissors"><div class="scissors"><img src=${scissorsPicURL} class="img"></div></button>
             </div>
             `;
         const style = document.createElement("style");
@@ -93,7 +93,9 @@ function gameEl(params) {
               display: flex;
               gap: 46px;              
           }
-          .hands__button {
+          .hands__button-stone, 
+          .hands__button-paper,
+          .hands__button-scissors {
             border:none;
           }
           .stone:active {
@@ -125,6 +127,19 @@ function gameEl(params) {
           progressValue.textContent = `${progressStartValue}`
           circularProgress.style.background = `conic-gradient(blue ${progressStartValue * 90}deg, red 0deg) `
         }, speed)
+
+        const stoneButton = shadow.querySelector(".hands__button-stone");
+        stoneButton?.addEventListener("click", (e) => {
+          params.goTo("/stone")
+        })
+        const paperButton = shadow.querySelector(".hands__button-paper");
+        paperButton?.addEventListener("click", (e) => {
+          params.goTo("/paper")
+        })
+        const scissorsButton = shadow.querySelector(".hands__button-scissors");
+        scissorsButton?.addEventListener("click", (e) => {
+          params.goTo("/scissors")
+        })
         return shadow;
       }
     }

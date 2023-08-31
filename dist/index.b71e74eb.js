@@ -588,6 +588,8 @@ var _welcome = require("./welcome");
 var _instructions = require("./instructions");
 var _game = require("./game");
 var _paper = require("./hands/paper");
+var _scissors = require("./hands/scissors");
+var _stone = require("./hands/stone");
 function ultraRouter(container) {
     function divWelc() {
         const divWelcEl = document.createElement("div");
@@ -609,6 +611,16 @@ function ultraRouter(container) {
         divPaper.innerHTML = `<paper-el></paper-el>`;
         container.appendChild(divPaper);
     }
+    function divScissors() {
+        const divScissors = document.createElement("div");
+        divScissors.innerHTML = `<scissors-el></scissors-el>`;
+        container.appendChild(divScissors);
+    }
+    function divStone() {
+        const divStone = document.createElement("div");
+        divStone.innerHTML = `<stone-el></stone-el>`;
+        container.appendChild(divStone);
+    }
     const routes = [
         {
             path: /\/welcome/,
@@ -629,6 +641,16 @@ function ultraRouter(container) {
             path: /\/paper/,
             action: (0, _paper.paper),
             tag: divPaper
+        },
+        {
+            path: /\/scissors/,
+            action: (0, _scissors.scissors),
+            tag: divScissors
+        },
+        {
+            path: /\/stone/,
+            action: (0, _stone.stone),
+            tag: divStone
         }
     ];
     function goTo(path) {
@@ -659,7 +681,7 @@ function ultraRouter(container) {
     else goTo(location.pathname);
 }
 
-},{"./welcome":"4ZHqi","./instructions":"j7w79","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./game":"hAGHe","./hands/paper":"5o8zy"}],"4ZHqi":[function(require,module,exports) {
+},{"./welcome":"4ZHqi","./instructions":"j7w79","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./game":"hAGHe","./hands/paper":"5o8zy","./hands/scissors":"gjnzS","./hands/stone":"1cQwl"}],"4ZHqi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "welcEl", ()=>welcEl);
@@ -953,9 +975,9 @@ function gameEl(params) {
                 </div>
                 </div>
             <div class="hands">
-            <button class="hands__button"><div class="stone"><img src=${stonePicURL} class="img"></div></button>
-            <button class="hands__button"><div class="paper"><img src=${paperPicURL} class="img"></div></button>
-            <button class="hands__button"><div class="scissors"><img src=${scissorsPicURL} class="img"></div></button>
+            <button class="hands__button-stone"><div class="stone"><img src=${stonePicURL} class="img"></div></button>
+            <button class="hands__button-paper"><div class="paper"><img src=${paperPicURL} class="img"></div></button>
+            <button class="hands__button-scissors"><div class="scissors"><img src=${scissorsPicURL} class="img"></div></button>
             </div>
             `;
             const style = document.createElement("style");
@@ -1024,7 +1046,9 @@ function gameEl(params) {
               display: flex;
               gap: 46px;              
           }
-          .hands__button {
+          .hands__button-stone, 
+          .hands__button-paper,
+          .hands__button-scissors {
             border:none;
           }
           .stone:active {
@@ -1052,6 +1076,18 @@ function gameEl(params) {
                 progressValue.textContent = `${progressStartValue}`;
                 circularProgress.style.background = `conic-gradient(blue ${progressStartValue * 90}deg, red 0deg) `;
             }, speed);
+            const stoneButton = shadow.querySelector(".hands__button-stone");
+            stoneButton?.addEventListener("click", (e)=>{
+                params.goTo("/stone");
+            });
+            const paperButton = shadow.querySelector(".hands__button-paper");
+            paperButton?.addEventListener("click", (e)=>{
+                params.goTo("/paper");
+            });
+            const scissorsButton = shadow.querySelector(".hands__button-scissors");
+            scissorsButton?.addEventListener("click", (e)=>{
+                params.goTo("/scissors");
+            });
             return shadow;
         }
     });
@@ -1102,10 +1138,17 @@ function paper(params) {
             align-items: center;
             }
         .rival-hand {
-            text-align: center;
-            width: 100px;
-            height: 155px;
+            display: flex;
+            align-items: center;
+            justify-content: center;          
+            min-width: 375px;           
             }
+        .rival__hand-img {
+            width: 180px;
+            height: 280px;
+            text-align: center;
+            transform: rotate(180deg);
+        }
         .player-hand {
             display: flex;
             align-items: center;
@@ -1122,11 +1165,391 @@ function paper(params) {
             div.classList.add("inner-root");
             shadow.appendChild(div);
             shadow.appendChild(style);
+            function randomNum() {
+                const num = Math.random().toString().slice(5, 6);
+                console.log("tester" + num);
+                handSelector(num);
+            }
+            function handSelector(number) {
+                const jsonNumber = JSON.parse(number);
+                console.log(jsonNumber);
+                var rivalHand = shadow.querySelector(".rival-hand");
+                function divStone() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${stonePicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                function divPaper() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${paperPicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                function divScissors() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${scissorsPicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                const nums = [
+                    {
+                        number: 0,
+                        action: divStone
+                    },
+                    {
+                        number: 1,
+                        action: divPaper
+                    },
+                    {
+                        number: 2,
+                        action: divScissors
+                    },
+                    {
+                        number: 3,
+                        action: divStone
+                    },
+                    {
+                        number: 4,
+                        action: divPaper
+                    },
+                    {
+                        number: 5,
+                        action: divScissors
+                    },
+                    {
+                        number: 6,
+                        action: divStone
+                    },
+                    {
+                        number: 7,
+                        action: divPaper
+                    },
+                    {
+                        number: 8,
+                        action: divScissors
+                    },
+                    {
+                        number: 9,
+                        action: divStone
+                    }
+                ];
+                for (const n of nums)if (n.number == jsonNumber) {
+                    console.log(jsonNumber);
+                    const a = n.action();
+                    return a;
+                }
+            }
+            randomNum();
             return shadow;
         }
     });
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","f4dbb310b13c82f7":"9F5qN","1f7c6c51e493e4b4":"aFQpL","d878cf5fccf0dda6":"6oFW3","1cf17cb2ee2d20c4":"iEwyR"}]},["2oZg2","h7u1C"], "h7u1C", "parcelRequire6ad3")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","f4dbb310b13c82f7":"9F5qN","1f7c6c51e493e4b4":"aFQpL","d878cf5fccf0dda6":"6oFW3","1cf17cb2ee2d20c4":"iEwyR"}],"gjnzS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "scissors", ()=>scissors);
+function scissors(params) {
+    customElements.define("scissors-el", class Game extends HTMLElement {
+        constructor(){
+            super();
+            this.render();
+        }
+        render() {
+            const shadow = this.attachShadow({
+                mode: "open"
+            });
+            const stonePicURL = require("44480cc25fb41d58");
+            const paperPicURL = require("5e3598db4388e552");
+            const scissorsPicURL = require("9526604d1d7569a0");
+            const backgroundURL = require("423e938cd879d8b7");
+            const div = document.createElement("div");
+            div.innerHTML = `
+                <div class="hands">
+                <div class="rival-hand"></div>
+                <div class="player-hand"><img src=${scissorsPicURL} class="scissors"></div>
+                </div>                
+            `;
+            const style = document.createElement("style");
+            style.textContent = `
+        .inner-root {                
+              background-image: url(${backgroundURL});
+              min-width: 375px;
+              min-height: 667px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: space-between;
+            }
+        .hands{
+            min-width: 375px;
+            min-height: 667px;
+            display: flex;
+            flex-direction: column;
+            justify-content:space-between;
+            align-items: center;
+            }
+        .rival-hand {
+            display: flex;
+            align-items: center;
+            justify-content: center;          
+            min-width: 375px;           
+            }
+        .rival__hand-img {
+            width: 180px;
+            height: 280px;
+            text-align: center;
+            transform: rotate(180deg);
+        }
+        .player-hand {
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            min-width: 375px;
+        }
+        .scissors {       
+            text-align: center;    
+            width: 180px;
+            height: 280px;
+            }        
+          `;
+            div.classList.add("inner-root");
+            shadow.appendChild(div);
+            shadow.appendChild(style);
+            function randomNum() {
+                const num = Math.random().toString().slice(5, 6);
+                console.log("tester" + num);
+                handSelector(num);
+            }
+            function handSelector(number) {
+                const jsonNumber = JSON.parse(number);
+                console.log(jsonNumber);
+                var rivalHand = shadow.querySelector(".rival-hand");
+                function divStone() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${stonePicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                function divPaper() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${paperPicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                function divScissors() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${scissorsPicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                const nums = [
+                    {
+                        number: 0,
+                        action: divStone
+                    },
+                    {
+                        number: 1,
+                        action: divPaper
+                    },
+                    {
+                        number: 2,
+                        action: divScissors
+                    },
+                    {
+                        number: 3,
+                        action: divStone
+                    },
+                    {
+                        number: 4,
+                        action: divPaper
+                    },
+                    {
+                        number: 5,
+                        action: divScissors
+                    },
+                    {
+                        number: 6,
+                        action: divStone
+                    },
+                    {
+                        number: 7,
+                        action: divPaper
+                    },
+                    {
+                        number: 8,
+                        action: divScissors
+                    },
+                    {
+                        number: 9,
+                        action: divStone
+                    }
+                ];
+                for (const n of nums)if (n.number == jsonNumber) {
+                    console.log(jsonNumber);
+                    const a = n.action();
+                    return a;
+                }
+            }
+            randomNum();
+            return shadow;
+        }
+    });
+}
+
+},{"44480cc25fb41d58":"9F5qN","5e3598db4388e552":"aFQpL","9526604d1d7569a0":"6oFW3","423e938cd879d8b7":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1cQwl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "stone", ()=>stone);
+function stone(params) {
+    customElements.define("stone-el", class Game extends HTMLElement {
+        constructor(){
+            super();
+            this.render();
+        }
+        render() {
+            const shadow = this.attachShadow({
+                mode: "open"
+            });
+            const stonePicURL = require("3331a4d257c870d6");
+            const paperPicURL = require("14141431f6a62d5b");
+            const scissorsPicURL = require("7002c57c863bc8d5");
+            const backgroundURL = require("884d99c5cee166f7");
+            const div = document.createElement("div");
+            div.innerHTML = `
+                <div class="hands">
+                <div class="rival-hand"></div>
+                <div class="player-hand"><img src=${scissorsPicURL} class="stone"></div>
+                </div>                
+            `;
+            const style = document.createElement("style");
+            style.textContent = `
+        .inner-root {                
+              background-image: url(${backgroundURL});
+              min-width: 375px;
+              min-height: 667px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: space-between;
+            }
+        .hands{
+            min-width: 375px;
+            min-height: 667px;
+            display: flex;
+            flex-direction: column;
+            justify-content:space-between;
+            align-items: center;
+            }
+        .rival-hand {
+            display: flex;
+            align-items: center;
+            justify-content: center;          
+            min-width: 375px;           
+            }
+        .rival__hand-img {
+            width: 180px;
+            height: 280px;
+            text-align: center;
+            transform: rotate(180deg);
+        }
+        .player-hand {
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            min-width: 375px;
+        }
+        .stone {       
+            text-align: center;    
+            width: 180px;
+            height: 280px;
+            }        
+          `;
+            div.classList.add("inner-root");
+            shadow.appendChild(div);
+            shadow.appendChild(style);
+            function randomNum() {
+                const num = Math.random().toString().slice(5, 6);
+                console.log("tester" + num);
+                handSelector(num);
+            }
+            function handSelector(number) {
+                const jsonNumber = JSON.parse(number);
+                console.log(jsonNumber);
+                var rivalHand = shadow.querySelector(".rival-hand");
+                function divStone() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${stonePicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                function divPaper() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${paperPicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                function divScissors() {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src=${scissorsPicURL} class="rival__hand-img">`;
+                    rivalHand.appendChild(div);
+                    return rivalHand;
+                }
+                const nums = [
+                    {
+                        number: 0,
+                        action: divStone
+                    },
+                    {
+                        number: 1,
+                        action: divPaper
+                    },
+                    {
+                        number: 2,
+                        action: divScissors
+                    },
+                    {
+                        number: 3,
+                        action: divStone
+                    },
+                    {
+                        number: 4,
+                        action: divPaper
+                    },
+                    {
+                        number: 5,
+                        action: divScissors
+                    },
+                    {
+                        number: 6,
+                        action: divStone
+                    },
+                    {
+                        number: 7,
+                        action: divPaper
+                    },
+                    {
+                        number: 8,
+                        action: divScissors
+                    },
+                    {
+                        number: 9,
+                        action: divStone
+                    }
+                ];
+                for (const n of nums)if (n.number == jsonNumber) {
+                    console.log(jsonNumber);
+                    const a = n.action();
+                    return a;
+                }
+            }
+            randomNum();
+            return shadow;
+        }
+    });
+}
+
+},{"3331a4d257c870d6":"9F5qN","14141431f6a62d5b":"aFQpL","7002c57c863bc8d5":"6oFW3","884d99c5cee166f7":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2oZg2","h7u1C"], "h7u1C", "parcelRequire6ad3")
 
 //# sourceMappingURL=index.b71e74eb.js.map

@@ -39,10 +39,17 @@ function paper(params) {
             align-items: center;
             }
         .rival-hand {
-            text-align: center;
-            width: 100px;
-            height: 155px;
+            display: flex;
+            align-items: center;
+            justify-content: center;          
+            min-width: 375px;           
             }
+        .rival__hand-img {
+            width: 180px;
+            height: 280px;
+            text-align: center;
+            transform: rotate(180deg);
+        }
         .player-hand {
             display: flex;
             align-items: center;
@@ -59,6 +66,84 @@ function paper(params) {
                 div.classList.add("inner-root");
                 shadow.appendChild(div);
                 shadow.appendChild(style);
+                function randomNum() {
+                    const num = Math.random().toString().slice(5, 6);
+                    console.log("tester" + num)
+                    handSelector(num)
+                }
+                function handSelector(number: string) {
+                    const jsonNumber = JSON.parse(number)
+                    console.log(jsonNumber)
+                    var rivalHand = shadow.querySelector(".rival-hand") as HTMLElement;
+                    function divStone() {
+                        const div = document.createElement("div");
+                        div.innerHTML = `<img src=${stonePicURL} class="rival__hand-img">`
+                        rivalHand.appendChild(div);
+                        return rivalHand;
+                    }
+                    function divPaper() {
+                        const div = document.createElement("div");
+                        div.innerHTML = `<img src=${paperPicURL} class="rival__hand-img">`
+                        rivalHand.appendChild(div);
+                        return rivalHand;
+                    }
+                    function divScissors() {
+                        const div = document.createElement("div");
+                        div.innerHTML = `<img src=${scissorsPicURL} class="rival__hand-img">`
+                        rivalHand.appendChild(div);
+                        return rivalHand;
+                    }
+                    const nums = [
+                        {
+                            number: 0,
+                            action: divStone,
+                        },
+                        {
+                            number: 1,
+                            action: divPaper,
+                        },
+                        {
+                            number: 2,
+                            action: divScissors,
+                        },
+                        {
+                            number: 3,
+                            action: divStone,
+                        },
+                        {
+                            number: 4,
+                            action: divPaper,
+                        },
+                        {
+                            number: 5,
+                            action: divScissors,
+                        },
+                        {
+                            number: 6,
+                            action: divStone,
+                        },
+                        {
+                            number: 7,
+                            action: divPaper,
+                        },
+                        {
+                            number: 8,
+                            action: divScissors,
+                        },
+                        {
+                            number: 9,
+                            action: divStone,
+                        },
+                    ] as any
+                    for (const n of nums) {
+                        if (n.number == jsonNumber) {
+                            console.log(jsonNumber);
+                            const a = n.action();
+                            return a
+                        }
+                    }
+                }
+                randomNum();
                 return shadow;
             }
         }
