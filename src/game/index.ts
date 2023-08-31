@@ -1,71 +1,77 @@
 function gameEl(params) {
-    customElements.define(
-        "game-el",
-        class Game extends HTMLElement {
-            constructor() {
-                super();
-                this.render();
-            }
-
-
-            render() {
-                const shadow = this.attachShadow({ mode: "open" });
-                const stonePicURL = require("url:../piedra.svg");
-                const paperPicURL = require("url:../papel.svg");
-                const scissorsPicURL = require("url:../tijera.svg");
-                const backgroundURL = require("url:../fondo.png");
-
-                const circularProgress = document.querySelector(".counter"),
-                    progressValue = document.querySelector(".numbers");
-
-                let progressStartValue = 0,
-                    progressEndValue = 3,
-                    speed = 3000;
-
-                let progress = setInterval(() => {
-                    progressStartValue++;
-                    console.log(progressValue)
-
-                    if (progressStartValue == progressEndValue) {
-                        clearInterval(progress)
-                    }
-                }, speed)
-
-
-
-
-
-                const div = document.createElement("div");
-                div.innerHTML = `
-            
+  customElements.define(
+    "game-el",
+    class Game extends HTMLElement {
+      constructor() {
+        super();
+        this.render();
+      }
+      render() {
+        const shadow = this.attachShadow({ mode: "open" });
+        const stonePicURL = require("url:../piedra.svg");
+        const paperPicURL = require("url:../papel.svg");
+        const scissorsPicURL = require("url:../tijera.svg");
+        const backgroundURL = require("url:../fondo.png");
+        const div = document.createElement("div");
+        div.innerHTML = `
+                <div class="main-counter">
+                <div class="circular-counter">
+                <div class="circular-counter-2">
+                <span class="number"></span>
+                </div>
+                </div>
+                </div>
             <div class="hands">
-                <img src=${stonePicURL} class="img">
-                <img src=${paperPicURL} class="img">
-                <img src=${scissorsPicURL} class="img">
+            <button class="hands__button"><div class="stone"><img src=${stonePicURL} class="img"></div></button>
+            <button class="hands__button"><div class="paper"><img src=${paperPicURL} class="img"></div></button>
+            <button class="hands__button"><div class="scissors"><img src=${scissorsPicURL} class="img"></div></button>
             </div>
             `;
-                const style = document.createElement("style");
-                style.textContent = `
-            .inner-root {
+        const style = document.createElement("style");
+        style.textContent = `
+            .inner-root {                
               background-image: url(${backgroundURL});
               min-width: 375px;
-              height: 667px;
+              min-height: 667px;
               display: flex;
               align-items: center;
               flex-direction: column;
               justify-content: space-between;
           }
-          
-          .title {
-              color: #000;
-              text-align: center;
-              font-family: 'Courier Prime', monospace;
-              font-size: 40px;
-              font-style: normal;
-              font-weight: 600;
-              line-height: 100%; /* 40px */
+          .main-counter{
+            padding-top:125px;
           }
-          
+          .circular-counter {                 
+            display:flex;            
+            align-items: center;
+            justify-content: center;      
+            width: 243px;
+            height: 243px;                  
+            align-items: center;
+            border-radius:50%;
+            background: conic-gradient(blue 3.6deg, red 0deg)            
+          }
+          .circular-counter-2{     
+            display:flex;
+            align-items: center;
+            justify-content: center;     
+            text-align: center;   
+            width:223px;
+            height: 223px;
+            border-radius:50%;
+            background-color: white;
+            background-image: url(${backgroundURL});
+          }
+          .number{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+              width: 100px;
+              height: 100px;
+              font-family: 'Odibee Sans';
+            font-size:70px;
+            font-weight:600;
+          }
           .button {
               width: 322px;
               height: 87px;
@@ -82,36 +88,46 @@ function gameEl(params) {
               font-weight: 400;
               line-height: normal;
               letter-spacing: 2.25px;
-          }
-          
+          }          
           .hands {
               display: flex;
-              gap: 46px;
+              gap: 46px;              
           }
-          
-          .button:hover {
-              background: #00449d;
+          .hands__button {
+            border:none;
           }
-          
-          .button:active {
-              background: #009048;
-          }
+          .stone:active {
+            width: 100px;
+            height: 150px;            
+          }          
+          .paper:active {
+            width: 100px;
+            height: 150px;            
+          }          
+          .scissors:active {
+            width: 100px;
+            height: 150px;           
+          }          
           `;
-
-                div.classList.add("inner-root");
-                //   div.appendChild(style);
-                //   return div;
-
-                shadow.appendChild(div);
-                shadow.appendChild(style);
-
-                // const mainDiv2 = document.createElement("div");
-                // mainDiv2.appendChild(shadow);
-                // console.log(mainDiv2);
-                return shadow;
-            }
-        }
-    );
+        div.classList.add("inner-root");
+        shadow.appendChild(div);
+        shadow.appendChild(style);
+        const circularProgress = shadow?.querySelector(".circular-counter") as any;
+        const progressValue = shadow?.querySelector(".number") as any;
+        let progressStartValue = 4,
+          progressEndValue = 0,
+          speed = 1000;
+        let progress = setInterval(() => {
+          progressStartValue--;
+          if (progressStartValue == progressEndValue) {
+            clearInterval(progress)
+          }
+          progressValue.textContent = `${progressStartValue}`
+          circularProgress.style.background = `conic-gradient(blue ${progressStartValue * 90}deg, red 0deg) `
+        }, speed)
+        return shadow;
+      }
+    }
+  );
 };
-
 export { gameEl };

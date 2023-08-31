@@ -6,26 +6,33 @@ export function welcEl(params) {
         super();
         this.render();
       }
+      // connectedCallback() {
+      //   const boton = document.querySelector(".button") as HTMLButtonElement;
+      //   document.body.addEventListener("click", function (e) {
+      //     e.preventDefault();
+      //     params.goTo("/instructions");
 
-      connectedCallback() {
-        const boton = document.querySelector(".button") as HTMLButtonElement;
-        document.body.addEventListener("click", function (e) {
-          e.preventDefault();
-          params.goTo("/instructions");
-
-          console.log("exitButton was clicked!");
-        });
-      }
-
+      //     console.log("exitButton was clicked!");
+      //   });
+      // }
       render() {
         const shadow = this.attachShadow({ mode: "open" });
         const stonePicURL = require("url:../piedra.svg");
         const paperPicURL = require("url:../papel.svg");
         const scissorsPicURL = require("url:../tijera.svg");
         const backgroundURL = require("url:../fondo.png");
-
         // -----------------------------------------------------
-
+        const div = document.createElement("div");
+        div.innerHTML = `
+      <h1 class="title">Piedra Papel ó Tijera</h1>
+      <button type="button" class="welcome-button">Empezar</button>
+      <div class="hands">
+          <img src=${stonePicURL} class="img">
+          <img src=${paperPicURL} class="img">
+          <img src=${scissorsPicURL} class="img">
+      </div>
+      `;
+        // -------------------------------------------------------
         const style = document.createElement("style");
         style.textContent = `
         .inner-root {
@@ -36,8 +43,7 @@ export function welcEl(params) {
             align-items: center;
             flex-direction: column;
           justify-content: space-between;
-      }
-      
+      }      
       .title {
           text-align: center;
           margin-top: 70px;
@@ -46,8 +52,7 @@ export function welcEl(params) {
           font-size: 70px;
           font-style: normal;
           font-weight: 1000;
-        }
-      
+        }      
       .welcome-button {
           width: 322px;
           height: 87px;
@@ -64,61 +69,30 @@ export function welcEl(params) {
           font-weight: 400;
           line-height: normal;
           letter-spacing: 2.25px;
-        }
-        
+        }        
       .hands {
           display: flex;
           gap: 46px;
-      }
-      
+      }      
       .button:hover {
           background: #00449d;
-        }
-      
+        }      
       .button:active {
           background: #009048;
       }
       `;
-
-        // ----------------------------------------------------------
-
-        const div = document.createElement("div");
-        div.innerHTML = `
-      <h1 class="title">Piedra Papel ó Tijera</h1>
-      <button type="button" class="welcome-button">Empezar</button>
-      <div class="hands">
-          <img src=${stonePicURL} class="img">
-          <img src=${paperPicURL} class="img">
-          <img src=${scissorsPicURL} class="img">
-      </div>
-      `;
-
-        // ----------------------------------------------------------
-
+        // ----------------------------------------------------------       
         div.classList.add("inner-root");
-
-        const buttonEl = document.querySelector(".welcome-button");
-        div.addEventListener("click", () => {
-          params.goTo("/instructions");
-          console.log("hice click");
-        });
         shadow.appendChild(div);
         shadow.appendChild(style);
-        // const mainDiv = document.createElement("div")
-        // mainDiv.appendChild(shadow);
-        // console.log(mainDiv.nodeType);
-        const boton = document.querySelector(".button") as HTMLButtonElement;
-        boton.addEventListener("click", function () {
+        const boton = shadow.querySelector(".welcome-button");
+        boton?.addEventListener("click", function () {
           params.goTo("/instructions");
-          console.log("exitButton was clicked!");
+          console.log("pasamos a la siguiente página para instrucciones");
         });
         return shadow;
-
-        //   div.appendChild(style);
-
       }
     }
   );
-
 }
 

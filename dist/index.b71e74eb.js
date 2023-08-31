@@ -586,6 +586,8 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ultraRouter", ()=>ultraRouter);
 var _welcome = require("./welcome");
 var _instructions = require("./instructions");
+var _game = require("./game");
+var _paper = require("./hands/paper");
 function ultraRouter(container) {
     function divWelc() {
         const divWelcEl = document.createElement("div");
@@ -597,6 +599,16 @@ function ultraRouter(container) {
         divInst.innerHTML = `<inst-el></inst-el>`;
         container.appendChild(divInst);
     }
+    function divGame() {
+        const divGame = document.createElement("div");
+        divGame.innerHTML = `<game-el></game-el>`;
+        container.appendChild(divGame);
+    }
+    function divPaper() {
+        const divPaper = document.createElement("div");
+        divPaper.innerHTML = `<paper-el></paper-el>`;
+        container.appendChild(divPaper);
+    }
     const routes = [
         {
             path: /\/welcome/,
@@ -607,46 +619,47 @@ function ultraRouter(container) {
             path: /\/instructions/,
             action: (0, _instructions.instEl),
             tag: divInst
+        },
+        {
+            path: /\/game/,
+            action: (0, _game.gameEl),
+            tag: divGame
+        },
+        {
+            path: /\/paper/,
+            action: (0, _paper.paper),
+            tag: divPaper
         }
     ];
     function goTo(path) {
         history.pushState({}, "", path);
         handleRoute(path);
     }
-    // ---------------------------------------------
     function handleRoute(route) {
         function remover() {
-            if (container.firstChild) {
-                const els = container.firstChild.remove();
-                console.log("se elimina", els);
-            }
+            if (container.firstChild) container.firstChild.remove();
         }
         function func() {
-            for (const r of routes){
-                console.log("r", r);
-                console.log("ruta", route);
-                if (r.path.test(route)) {
-                    console.log(r.tag);
-                    r.tag();
-                    const el = r.action({
-                        goTo: goTo
-                    });
-                    console.log(el);
-                    return el;
-                }
+            for (const r of routes)if (r.path.test(route)) {
+                r.tag();
+                const el = r.action({
+                    goTo: goTo
+                });
+                return el;
             }
         }
         remover();
         func();
     }
-    console.log("antes del handleRoute", location.pathname);
     handleRoute(location.pathname);
     window.onpopstate = function() {
         handleRoute(location.pathname);
     };
+    if (location.pathname == "/") goTo("/welcome");
+    else goTo(location.pathname);
 }
 
-},{"./welcome":"4ZHqi","./instructions":"j7w79","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4ZHqi":[function(require,module,exports) {
+},{"./welcome":"4ZHqi","./instructions":"j7w79","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./game":"hAGHe","./hands/paper":"5o8zy"}],"4ZHqi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "welcEl", ()=>welcEl);
@@ -656,14 +669,14 @@ function welcEl(params) {
             super();
             this.render();
         }
-        connectedCallback() {
-            const boton = document.querySelector(".button");
-            document.body.addEventListener("click", function(e) {
-                e.preventDefault();
-                params.goTo("/instructions");
-                console.log("exitButton was clicked!");
-            });
-        }
+        // connectedCallback() {
+        //   const boton = document.querySelector(".button") as HTMLButtonElement;
+        //   document.body.addEventListener("click", function (e) {
+        //     e.preventDefault();
+        //     params.goTo("/instructions");
+        //     console.log("exitButton was clicked!");
+        //   });
+        // }
         render() {
             const shadow = this.attachShadow({
                 mode: "open"
@@ -673,6 +686,17 @@ function welcEl(params) {
             const scissorsPicURL = require("d017b3f9e3a35c5d");
             const backgroundURL = require("2ea421fe71755ece");
             // -----------------------------------------------------
+            const div = document.createElement("div");
+            div.innerHTML = `
+      <h1 class="title">Piedra Papel ó Tijera</h1>
+      <button type="button" class="welcome-button">Empezar</button>
+      <div class="hands">
+          <img src=${stonePicURL} class="img">
+          <img src=${paperPicURL} class="img">
+          <img src=${scissorsPicURL} class="img">
+      </div>
+      `;
+            // -------------------------------------------------------
             const style = document.createElement("style");
             style.textContent = `
         .inner-root {
@@ -683,8 +707,7 @@ function welcEl(params) {
             align-items: center;
             flex-direction: column;
           justify-content: space-between;
-      }
-      
+      }      
       .title {
           text-align: center;
           margin-top: 70px;
@@ -693,8 +716,7 @@ function welcEl(params) {
           font-size: 70px;
           font-style: normal;
           font-weight: 1000;
-        }
-      
+        }      
       .welcome-button {
           width: 322px;
           height: 87px;
@@ -711,51 +733,28 @@ function welcEl(params) {
           font-weight: 400;
           line-height: normal;
           letter-spacing: 2.25px;
-        }
-        
+        }        
       .hands {
           display: flex;
           gap: 46px;
-      }
-      
+      }      
       .button:hover {
           background: #00449d;
-        }
-      
+        }      
       .button:active {
           background: #009048;
       }
       `;
-            // ----------------------------------------------------------
-            const div = document.createElement("div");
-            div.innerHTML = `
-      <h1 class="title">Piedra Papel ó Tijera</h1>
-      <button type="button" class="welcome-button">Empezar</button>
-      <div class="hands">
-          <img src=${stonePicURL} class="img">
-          <img src=${paperPicURL} class="img">
-          <img src=${scissorsPicURL} class="img">
-      </div>
-      `;
-            // ----------------------------------------------------------
+            // ----------------------------------------------------------       
             div.classList.add("inner-root");
-            const buttonEl = document.querySelector(".welcome-button");
-            div.addEventListener("click", ()=>{
-                params.goTo("/instructions");
-                console.log("hice click");
-            });
             shadow.appendChild(div);
             shadow.appendChild(style);
-            // const mainDiv = document.createElement("div")
-            // mainDiv.appendChild(shadow);
-            // console.log(mainDiv.nodeType);
-            const boton = document.querySelector(".button");
-            boton.addEventListener("click", function() {
+            const boton = shadow.querySelector(".welcome-button");
+            boton?.addEventListener("click", function() {
                 params.goTo("/instructions");
-                console.log("exitButton was clicked!");
+                console.log("pasamos a la siguiente p\xe1gina para instrucciones");
             });
             return shadow;
-        //   div.appendChild(style);
         }
     });
 }
@@ -847,12 +846,6 @@ function instEl(params) {
             super();
             this.render();
         }
-        connectedCallback() {
-            const boton = document.querySelector(".button");
-            document.body.addEventListener("click", function() {
-                console.log("exitButton was clicked!");
-            });
-        }
         render() {
             const shadow = this.attachShadow({
                 mode: "open"
@@ -863,7 +856,7 @@ function instEl(params) {
             const backgroundURL = require("3af4f9e03806575e");
             const div = document.createElement("div");
             div.innerHTML = `
-          <h3 class="title">Presioná Jugar y elegí: piedra, papel o tijera antes de que pasen los 3 segundos</h3>
+          <h3 class="title">Presioná Jugar y elegí piedra, papel o tijera antes de que pasen los 3 segundos</h3>
           <button class="button">¡Jugar!</button>
           <div class="hands">
               <img src=${stonePicURL} class="img">
@@ -881,8 +874,7 @@ function instEl(params) {
             align-items: center;
             flex-direction: column;
             justify-content: space-between;
-        }
-        
+        }        
         .title {
             color: #000;
             text-align: center;
@@ -891,16 +883,14 @@ function instEl(params) {
             font-style: normal;
             font-weight: 600;
             line-height: 100%; /* 40px */
-        }
-        
+        }        
         .button {
             width: 322px;
             height: 87px;
             border-radius: 10px;
             border: 10px solid #001997;
             background: #006CFC;
-            color: aliceblue;
-        
+            color: aliceblue;        
             color: #D8FCFC;
             text-align: center;
             font-family: 'Odibee Sans';
@@ -909,34 +899,242 @@ function instEl(params) {
             font-weight: 400;
             line-height: normal;
             letter-spacing: 2.25px;
-        }
-        
+        }        
         .hands {
             display: flex;
             gap: 46px;
-        }
-        
+        }        
         .button:hover {
             background: #00449d;
-        }
-        
+        }        
         .button:active {
             background: #009048;
         }
         `;
             div.classList.add("inner-root");
-            //   div.appendChild(style);
-            //   return div;
             shadow.appendChild(div);
             shadow.appendChild(style);
-            // const mainDiv2 = document.createElement("div");
-            // mainDiv2.appendChild(shadow);
-            // console.log(mainDiv2);
+            const boton = shadow.querySelector(".button");
+            boton.addEventListener("click", function(e) {
+                e.preventDefault();
+                params.goTo("/game");
+                console.log("pasamos a la siguiente p\xe1gina para jugar");
+            });
             return shadow;
         }
     });
 }
 
-},{"80459f7bc17693c":"9F5qN","e69c38e5c0d10819":"aFQpL","9dde2afb4b3bb0dc":"6oFW3","3af4f9e03806575e":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2oZg2","h7u1C"], "h7u1C", "parcelRequire6ad3")
+},{"80459f7bc17693c":"9F5qN","e69c38e5c0d10819":"aFQpL","9dde2afb4b3bb0dc":"6oFW3","3af4f9e03806575e":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hAGHe":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "gameEl", ()=>gameEl);
+function gameEl(params) {
+    customElements.define("game-el", class Game extends HTMLElement {
+        constructor(){
+            super();
+            this.render();
+        }
+        render() {
+            const shadow = this.attachShadow({
+                mode: "open"
+            });
+            const stonePicURL = require("2d7e3701892f4666");
+            const paperPicURL = require("974e556cacd2055e");
+            const scissorsPicURL = require("2be2d28cc2b236ca");
+            const backgroundURL = require("1a95481d2a2981aa");
+            const div = document.createElement("div");
+            div.innerHTML = `
+                <div class="main-counter">
+                <div class="circular-counter">
+                <div class="circular-counter-2">
+                <span class="number"></span>
+                </div>
+                </div>
+                </div>
+            <div class="hands">
+            <button class="hands__button"><div class="stone"><img src=${stonePicURL} class="img"></div></button>
+            <button class="hands__button"><div class="paper"><img src=${paperPicURL} class="img"></div></button>
+            <button class="hands__button"><div class="scissors"><img src=${scissorsPicURL} class="img"></div></button>
+            </div>
+            `;
+            const style = document.createElement("style");
+            style.textContent = `
+            .inner-root {                
+              background-image: url(${backgroundURL});
+              min-width: 375px;
+              min-height: 667px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: space-between;
+          }
+          .main-counter{
+            padding-top:125px;
+          }
+          .circular-counter {                 
+            display:flex;            
+            align-items: center;
+            justify-content: center;      
+            width: 243px;
+            height: 243px;                  
+            align-items: center;
+            border-radius:50%;
+            background: conic-gradient(blue 3.6deg, red 0deg)            
+          }
+          .circular-counter-2{     
+            display:flex;
+            align-items: center;
+            justify-content: center;     
+            text-align: center;   
+            width:223px;
+            height: 223px;
+            border-radius:50%;
+            background-color: white;
+            background-image: url(${backgroundURL});
+          }
+          .number{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+              width: 100px;
+              height: 100px;
+              font-family: 'Odibee Sans';
+            font-size:70px;
+            font-weight:600;
+          }
+          .button {
+              width: 322px;
+              height: 87px;
+              border-radius: 10px;
+              border: 10px solid #001997;
+              background: #006CFC;
+              color: aliceblue;
+          
+              color: #D8FCFC;
+              text-align: center;
+              font-family: 'Odibee Sans';
+              font-size: 45px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              letter-spacing: 2.25px;
+          }          
+          .hands {
+              display: flex;
+              gap: 46px;              
+          }
+          .hands__button {
+            border:none;
+          }
+          .stone:active {
+            width: 100px;
+            height: 150px;            
+          }          
+          .paper:active {
+            width: 100px;
+            height: 150px;            
+          }          
+          .scissors:active {
+            width: 100px;
+            height: 150px;           
+          }          
+          `;
+            div.classList.add("inner-root");
+            shadow.appendChild(div);
+            shadow.appendChild(style);
+            const circularProgress = shadow?.querySelector(".circular-counter");
+            const progressValue = shadow?.querySelector(".number");
+            let progressStartValue = 4, progressEndValue = 0, speed = 1000;
+            let progress = setInterval(()=>{
+                progressStartValue--;
+                if (progressStartValue == progressEndValue) clearInterval(progress);
+                progressValue.textContent = `${progressStartValue}`;
+                circularProgress.style.background = `conic-gradient(blue ${progressStartValue * 90}deg, red 0deg) `;
+            }, speed);
+            return shadow;
+        }
+    });
+}
+
+},{"2d7e3701892f4666":"9F5qN","974e556cacd2055e":"aFQpL","2be2d28cc2b236ca":"6oFW3","1a95481d2a2981aa":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5o8zy":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "paper", ()=>paper);
+function paper(params) {
+    customElements.define("paper-el", class Game extends HTMLElement {
+        constructor(){
+            super();
+            this.render();
+        }
+        render() {
+            const shadow = this.attachShadow({
+                mode: "open"
+            });
+            const stonePicURL = require("f4dbb310b13c82f7");
+            const paperPicURL = require("1f7c6c51e493e4b4");
+            const scissorsPicURL = require("d878cf5fccf0dda6");
+            const backgroundURL = require("1cf17cb2ee2d20c4");
+            const div = document.createElement("div");
+            div.innerHTML = `
+                <div class="hands">
+                <div class="rival-hand"></div>
+                <div class="player-hand"><img src=${paperPicURL} class="paper"></div>
+                </div>                
+            `;
+            const style = document.createElement("style");
+            style.textContent = `
+        .inner-root {                
+              background-image: url(${backgroundURL});
+              min-width: 375px;
+              min-height: 667px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: space-between;
+            }
+        .hands{
+            min-width: 375px;
+            min-height: 667px;
+            display: flex;
+            flex-direction: column;
+            justify-content:space-between;
+            align-items: center;
+            }
+        .rival-hand {
+            text-align: center;
+            width: 100px;
+            height: 155px;
+            }
+        .player-hand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-left:27px;
+            min-width: 375px;
+        }
+        .paper {       
+            text-align: center;    
+            width: 180px;
+            height: 280px;
+            }        
+          `;
+            function randomNum() {
+                const num = Math.random().toString().slice(5, 6);
+                handSelector(num);
+            }
+            function handSelector(number) {
+                console.log(number);
+            }
+            randomNum();
+            div.classList.add("inner-root");
+            shadow.appendChild(div);
+            shadow.appendChild(style);
+            return shadow;
+        }
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","f4dbb310b13c82f7":"9F5qN","1f7c6c51e493e4b4":"aFQpL","d878cf5fccf0dda6":"6oFW3","1cf17cb2ee2d20c4":"iEwyR"}]},["2oZg2","h7u1C"], "h7u1C", "parcelRequire6ad3")
 
 //# sourceMappingURL=index.b71e74eb.js.map
