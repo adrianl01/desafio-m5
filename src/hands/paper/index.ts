@@ -56,15 +56,6 @@ function paper(params) {
             height: 280px;
             }        
           `;
-                function randomNum() {
-                    const num = Math.random().toString().slice(5, 6);
-                    handSelector(num)
-                }
-                function handSelector(number: string) {
-                    console.log(number);
-                }
-                randomNum()
-
                 div.classList.add("inner-root");
                 shadow.appendChild(div);
                 shadow.appendChild(style);
