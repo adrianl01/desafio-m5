@@ -1420,7 +1420,7 @@ function stone(params) {
             div.innerHTML = `
                 <div class="hands">
                 <div class="rival-hand"></div>
-                <div class="player-hand"><img src=${scissorsPicURL} class="stone"></div>
+                <div class="player-hand"><img src=${stonePicURL} class="stone"></div>
                 </div>                
             `;
             const style = document.createElement("style");
