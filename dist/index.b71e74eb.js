@@ -967,6 +967,10 @@ function gameEl(params) {
             const backgroundURL = require("1a95481d2a2981aa");
             const div = document.createElement("div");
             div.innerHTML = `
+        <div class="window">
+                <div class="window__text">Se te acabó el tiempo😨</div>
+                <button class="window__button">Reintentar</button>
+                </div>
                 <div class="main-counter">
                 <div class="circular-counter">
                 <div class="circular-counter-2">
@@ -982,6 +986,27 @@ function gameEl(params) {
             `;
             const style = document.createElement("style");
             style.textContent = `
+        .window {
+          backdrop-filter: blur(10px);
+          display: none;
+          position: absolute;
+          color: black;
+          /* background-color: rgb(0, 0, 0); */
+          /* opacity: .4; */
+          top: 5%;
+          left: 5%;
+          right: 5%;
+          bottom: 5%;
+          text-align: center;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          font-family: 'Odibee Sans';
+          font-size:30px;
+          font-weight:600;
+          gap: 30px;
+          border: solid black
+      }        
             .inner-root {                
               background-image: url(${backgroundURL});
               min-width: 375px;
@@ -1025,7 +1050,7 @@ function gameEl(params) {
             font-size:70px;
             font-weight:600;
           }
-          .button {
+          .button,.window__button {
               width: 322px;
               height: 87px;
               border-radius: 10px;
@@ -1072,7 +1097,11 @@ function gameEl(params) {
             let progressStartValue = 4, progressEndValue = 0, speed = 1000;
             let progress = setInterval(()=>{
                 progressStartValue--;
-                if (progressStartValue == progressEndValue) clearInterval(progress);
+                if (progressStartValue == progressEndValue) {
+                    const windowEl = shadow.querySelector(".window");
+                    windowEl.style.display = "flex";
+                    clearInterval(progress);
+                }
                 progressValue.textContent = `${progressStartValue}`;
                 circularProgress.style.background = `conic-gradient(blue ${progressStartValue * 90}deg, red 0deg) `;
             }, speed);
@@ -1087,6 +1116,10 @@ function gameEl(params) {
             const scissorsButton = shadow.querySelector(".hands__button-scissors");
             scissorsButton?.addEventListener("click", (e)=>{
                 params.goTo("/scissors");
+            });
+            const windowButton = shadow.querySelector(".window__button");
+            windowButton?.addEventListener("click", ()=>{
+                params.goTo("/instructions");
             });
             return shadow;
         }
@@ -1402,6 +1435,7 @@ function scissors(params) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "stone", ()=>stone);
+var _results = require("../../results");
 function stone(params) {
     customElements.define("stone-el", class Game extends HTMLElement {
         constructor(){
@@ -1417,7 +1451,7 @@ function stone(params) {
             const scissorsPicURL = require("7002c57c863bc8d5");
             const backgroundURL = require("884d99c5cee166f7");
             const div = document.createElement("div");
-            div.innerHTML = `
+            div.innerHTML = `                        
                 <div class="hands">
                 <div class="rival-hand"></div>
                 <div class="player-hand"><img src=${stonePicURL} class="stone"></div>
@@ -1539,8 +1573,11 @@ function stone(params) {
                     }
                 ];
                 for (const n of nums)if (n.number == jsonNumber) {
-                    console.log(jsonNumber);
+                    console.log("adentro del if", jsonNumber);
+                    const numString = jsonNumber.toString();
+                    const res = "1" + numString;
                     const a = n.action();
+                    (0, _results.result)(res);
                     return a;
                 }
             }
@@ -1550,6 +1587,288 @@ function stone(params) {
     });
 }
 
-},{"3331a4d257c870d6":"9F5qN","14141431f6a62d5b":"aFQpL","7002c57c863bc8d5":"6oFW3","884d99c5cee166f7":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2oZg2","h7u1C"], "h7u1C", "parcelRequire6ad3")
+},{"3331a4d257c870d6":"9F5qN","14141431f6a62d5b":"aFQpL","7002c57c863bc8d5":"6oFW3","884d99c5cee166f7":"iEwyR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../results":"bu4qW"}],"bu4qW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "result", ()=>result);
+function result(res) {
+    customElements.define("results-el", class Results extends HTMLElement {
+        constructor(){
+            super();
+            this.render();
+        }
+        render() {
+            const shadow = this.attachShadow({
+                mode: "open"
+            });
+            const div = document.createElement("div");
+            div.innerHTML = `                
+                <div class="window__text">
+                <div class="window__result">${resultsText()}</div>                
+                <div class="points__rival">Máquina:</div>                
+                <div class="points__player">Vos:</div>                
+                </div>
+                <button class="window__button">Reintentar</button>                      
+                `;
+            const style = document.createElement("style");
+            style.textContent = `
+                .window {
+                    backdrop-filter: blur(10px);
+                    display: flex;
+                    position: absolute;
+                    color: black;
+                    /* background-color: rgb(0, 0, 0); */
+                    /* opacity: .4; */
+                    top: 5%;
+                    left: 5%;
+                    right: 5%;
+                    bottom: 5%;
+                    text-align: center;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    font-family: 'Odibee Sans';
+                    font-size:30px;
+                    font-weight:600;
+                    gap: 30px;
+                    border: solid black
+                }
+                .window__button {
+                    width: 322px;
+                    height: 87px;
+                    border-radius: 10px;
+                    border: 10px solid #001997;
+                    background: #006CFC;
+                    color: aliceblue;
+                
+                    color: #D8FCFC;
+                    text-align: center;
+                    font-family: 'Odibee Sans';
+                    font-size: 45px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    letter-spacing: 2.25px;
+                }                                 
+                `;
+            div.classList.add("window");
+            shadow.appendChild(div);
+            shadow.appendChild(style);
+            const pointsStone = [
+                {
+                    number: 1,
+                    hand: "stone",
+                    result: "draw"
+                },
+                {
+                    number: 2,
+                    hand: "paper",
+                    result: "lose"
+                },
+                {
+                    number: 3,
+                    hand: "scissors",
+                    result: "win"
+                },
+                {
+                    number: 4,
+                    hand: "stone",
+                    result: "draw"
+                },
+                {
+                    number: 5,
+                    hand: "paper",
+                    result: "lose"
+                },
+                {
+                    number: 6,
+                    hand: "scissors",
+                    result: "win"
+                },
+                {
+                    number: 7,
+                    hand: "stone",
+                    result: "draw"
+                },
+                {
+                    number: 8,
+                    hand: "paper",
+                    result: "lose"
+                },
+                {
+                    number: 9,
+                    hand: "scissors",
+                    result: "win"
+                },
+                {
+                    number: 10,
+                    hand: "stone",
+                    result: "draw"
+                }
+            ];
+            const pointsPaper = [
+                {
+                    number: 2,
+                    hand: "stone",
+                    result: "win"
+                },
+                {
+                    number: 3,
+                    hand: "paper",
+                    result: "draw"
+                },
+                {
+                    number: 4,
+                    hand: "scissors",
+                    result: "lose"
+                },
+                {
+                    number: 5,
+                    hand: "stone",
+                    result: "win"
+                },
+                {
+                    number: 6,
+                    hand: "paper",
+                    result: "draw"
+                },
+                {
+                    number: 7,
+                    hand: "scissors",
+                    result: "lose"
+                },
+                {
+                    number: 8,
+                    hand: "stone",
+                    result: "win"
+                },
+                {
+                    number: 9,
+                    hand: "paper",
+                    result: "draw"
+                },
+                {
+                    number: 10,
+                    hand: "scissors",
+                    result: "lose"
+                },
+                {
+                    number: 11,
+                    hand: "stone",
+                    result: "win"
+                }
+            ];
+            const pointsScissors = [
+                {
+                    number: 3,
+                    hand: "stone",
+                    result: "lose"
+                },
+                {
+                    number: 4,
+                    hand: "paper",
+                    result: "win"
+                },
+                {
+                    number: 5,
+                    hand: "scissors",
+                    result: "draw"
+                },
+                {
+                    number: 6,
+                    hand: "stone",
+                    result: "lose"
+                },
+                {
+                    number: 7,
+                    hand: "paper",
+                    result: "win"
+                },
+                {
+                    number: 8,
+                    hand: "scissors",
+                    result: "draw"
+                },
+                {
+                    number: 9,
+                    hand: "stone",
+                    result: "lose"
+                },
+                {
+                    number: 10,
+                    hand: "paper",
+                    result: "win"
+                },
+                {
+                    number: 11,
+                    hand: "scissors",
+                    result: "draw"
+                },
+                {
+                    number: 12,
+                    hand: "stone",
+                    result: "lose"
+                }
+            ];
+            const hand = res.toString().slice(0, 1);
+            const rivalHand = res.toString().slice(1);
+            const hands = hand + rivalHand;
+            console.log("desde los resultados", hands);
+            function resultsText() {
+                if (hand == 1) {
+                    for (const result of pointsStone)if (result.number == hands) {
+                        if (result.result == "win") {
+                            const winText = "Ganaste!\uD83D\uDE03";
+                            return winText;
+                        }
+                        if (result.result == "lose") {
+                            const loseText = "Perdiste\uD83D\uDE43";
+                            return loseText;
+                        }
+                        if (result.result == "win") {
+                            const drawText = "Empate\uD83D\uDE01";
+                            return drawText;
+                        }
+                    }
+                }
+                if (hand == 2) {
+                    for (const result of pointsPaper)if (result.number == hands) {
+                        if (result.result == "win") {
+                            const winText = "Ganaste!\uD83D\uDE03";
+                            return winText;
+                        }
+                        if (result.result == "lose") {
+                            const loseText = "Perdiste\uD83D\uDE43";
+                            return loseText;
+                        }
+                        if (result.result == "win") {
+                            const drawText = "Empate\uD83D\uDE01";
+                            return drawText;
+                        }
+                    }
+                }
+                if (hand == 3) {
+                    for (const result of pointsScissors)if (result.number == hands) {
+                        if (result.result == "win") {
+                            const winText = "Ganaste!\uD83D\uDE03";
+                            return winText;
+                        }
+                        if (result.result == "lose") {
+                            const loseText = "Perdiste\uD83D\uDE43";
+                            return loseText;
+                        }
+                        if (result.result == "win") {
+                            const drawText = "Empate\uD83D\uDE01";
+                            return drawText;
+                        }
+                    }
+                }
+            }
+            return shadow;
+        }
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2oZg2","h7u1C"], "h7u1C", "parcelRequire6ad3")
 
 //# sourceMappingURL=index.b71e74eb.js.map

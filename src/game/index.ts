@@ -14,6 +14,10 @@ function gameEl(params) {
         const backgroundURL = require("url:../fondo.png");
         const div = document.createElement("div");
         div.innerHTML = `
+        <div class="window">
+                <div class="window__text">Se te acabó el tiempo😨</div>
+                <button class="window__button">Reintentar</button>
+                </div>
                 <div class="main-counter">
                 <div class="circular-counter">
                 <div class="circular-counter-2">
@@ -29,6 +33,27 @@ function gameEl(params) {
             `;
         const style = document.createElement("style");
         style.textContent = `
+        .window {
+          backdrop-filter: blur(10px);
+          display: none;
+          position: absolute;
+          color: black;
+          /* background-color: rgb(0, 0, 0); */
+          /* opacity: .4; */
+          top: 5%;
+          left: 5%;
+          right: 5%;
+          bottom: 5%;
+          text-align: center;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          font-family: 'Odibee Sans';
+          font-size:30px;
+          font-weight:600;
+          gap: 30px;
+          border: solid black
+      }        
             .inner-root {                
               background-image: url(${backgroundURL});
               min-width: 375px;
@@ -72,7 +97,7 @@ function gameEl(params) {
             font-size:70px;
             font-weight:600;
           }
-          .button {
+          .button,.window__button {
               width: 322px;
               height: 87px;
               border-radius: 10px;
@@ -122,6 +147,9 @@ function gameEl(params) {
         let progress = setInterval(() => {
           progressStartValue--;
           if (progressStartValue == progressEndValue) {
+            const windowEl = shadow.querySelector(".window") as HTMLElement;
+            windowEl.style.display = "flex"
+
             clearInterval(progress)
           }
           progressValue.textContent = `${progressStartValue}`
@@ -140,6 +168,11 @@ function gameEl(params) {
         scissorsButton?.addEventListener("click", (e) => {
           params.goTo("/scissors")
         })
+        const windowButton = shadow.querySelector(".window__button");
+        windowButton?.addEventListener("click", () => {
+          params.goTo("/instructions");
+        })
+
         return shadow;
       }
     }

@@ -1,3 +1,5 @@
+import { result } from "../../results";
+
 function stone(params) {
     customElements.define(
         "stone-el",
@@ -13,7 +15,7 @@ function stone(params) {
                 const scissorsPicURL = require("url:../../tijera.svg");
                 const backgroundURL = require("url:../../fondo.png");
                 const div = document.createElement("div");
-                div.innerHTML = `
+                div.innerHTML = `                        
                 <div class="hands">
                 <div class="rival-hand"></div>
                 <div class="player-hand"><img src=${stonePicURL} class="stone"></div>
@@ -136,13 +138,17 @@ function stone(params) {
                     ] as any
                     for (const n of nums) {
                         if (n.number == jsonNumber) {
-                            console.log(jsonNumber);
+                            console.log("adentro del if", jsonNumber);
+                            const numString = jsonNumber.toString()
+                            const res = "1" + numString;
                             const a = n.action();
+                            result(res)
                             return a
                         }
                     }
                 }
                 randomNum();
+
                 return shadow;
             }
         }
